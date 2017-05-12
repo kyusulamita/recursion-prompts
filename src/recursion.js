@@ -37,14 +37,24 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
-var sumBelow = function(n) {
-	if(n === 2) return 1;
-	return --n + sumBelow(n)
+var sumBelow = function(n) {		
+	if(n < 1 && n > -1) return 0;
+	else if(n >= 1)
+		return --n + sumBelow(n);
+	else if(n <= -1)
+		return ++n + sumBelow(n);
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+	if(x < y)
+		x++; 
+	else if(x > y) 
+		x--;
+	if (x === y) 
+		return [];
+	return [x].concat(range(x,y));
 };
 
 // 7. Compute the exponent of a number.
@@ -53,6 +63,11 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+	if (exp === 0) return 1;
+	if (exp > 0)
+		return base*exponent(base,--exp);
+	if (exp < 0)
+		return (exponent(base,++exp)/base);
 };
 
 // 8. Determine if a number is a power of two.
@@ -60,14 +75,26 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+	if(n===1) return true;
+	else if(n<1) return false;
+	return powerOfTwo(n/2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+	if (string.length === 0) return "";
+	else
+		return reverse(string.substr(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function(string) {
+var palindrome = function(string){
+	if(string.length < 2) return true;
+	string = string.toLowerCase().trim();
+	if(string[0] === string[string.length-1]){
+		return true && palindrome(string.substr(1, string.length-2));
+	}
+	return false;
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -76,16 +103,44 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+	if(y === 0) return NaN;
+	if(x < 0){
+		x += y;
+		if(x > 0) return x-y;
+		return modulo(x,y);
+	}
+	else if(x > 0){
+		x-=y;
+		if(x < 0) return x+y;
+		return modulo(x,y)
+
+	}
+	return 0;
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+	if(y === 0 || x === 0) return 0;
+	if(x > 0 && y > 0)
+		return x + multiply(x, --y);
+	if(x > 0 && y < 0)
+		return -x + multiply(x, ++y);
+	if(x < 0 && y > 0)
+		return x + multiply(x, --y);
+	if(x < 0 && y < 0)
+		return -x + multiply(x, ++y);
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
+	if(x === 0) return 0;
+	if(y === 0) return 0;
+	if(y < 0) return -1;
+	return 1 + divide(x-y, y);
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
