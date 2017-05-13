@@ -137,8 +137,7 @@ var multiply = function(x, y) {
 // Math methods.
 var divide = function(x, y) {
 	if(x === 0) return 0;
-	if(y === 0) return 0;
-	if(y < 0) return -1;
+	if(y = 0) return 0;
 	return 1 + divide(x-y, y);
 
 };
