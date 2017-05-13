@@ -155,21 +155,36 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+	//if(str1.length !== str2.length)return false;
+	if(str1.length === 0 || str2.length === 0){
+		return !str1.length && !str2.length
+	}
+	if(str1[0] === str2[0]){
+		return true && compareStr(str1.substr(1), str2.substr(1));
+	}
+	return false;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+	if (str.length === 0) return [];
+	return [str[0]].concat(createArray(str.substr(1)));
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+	if(array.length === 0 ) return [];
+	if (array.length === 1) return array;
+	return reverseArr(array.slice(1)).concat([array[0]]);
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+	if (length === 0) return [];
+	return [value].concat(buildList(value, --length));
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -178,12 +193,21 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+	if (n === 0) return [];
+	if (!(n%5) && !(n%3)) return fizzBuzz(--n).concat(["FizzBuzz"]);
+	else if (!(n%5)) return fizzBuzz(--n).concat(["Buzz"]);
+	else if (!(n%3)) return fizzBuzz(--n).concat(["Fizz"]);
+	return fizzBuzz(--n).concat([(n+1).toString()]);
 };
 
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+	if (!array.length) return 0;
+	if (array[0] === value)
+		return 1+countOccurrence(array.slice(1),value);
+	return 0+countOccurrence(array.slice(1),value) 
 };
 
 // 21. Write a recursive version of map.
