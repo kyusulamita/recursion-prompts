@@ -104,16 +104,27 @@ var palindrome = function(string){
 // modulo(22,6) // 4
 var modulo = function(x, y) {
 	if(y === 0) return NaN;
-	if(x < 0){
+	if(x === 0) return 0;
+	if(x < 0 && y > 0){
 		x += y;
 		if(x > 0) return x-y;
 		return modulo(x,y);
 	}
-	else if(x > 0){
+	else if(x > 0 && y > 0){
 		x-=y;
 		if(x < 0) return x+y;
 		return modulo(x,y)
 
+	}
+	else if(x > 0 && y < 0){
+		x -= y;
+		if(x < 0) return x;
+		return modulo(x,y);
+	}
+	else if(x < 0 && y < 0){
+		x-=y;
+		if(x > 0 ) return x + y;
+		return modulo(x, y);
 	}
 	return 0;
 };
@@ -213,6 +224,8 @@ var countOccurrence = function(array, value) {
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+	if(!array.length) return [];
+	return [callback(array[0])].concat(rMap(array.slice(1), callback));
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -220,6 +233,9 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+	for(i in obj){
+
+	}
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
@@ -240,6 +256,10 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+	if( n < 1) return null;
+	if(n===1 ) return [0, 1];
+	var i = fibonacci(--n);
+	return i.push(i[length-1] + i[length-2]);
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -248,6 +268,10 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+	if(n < 0) return null;
+	if(n === 0) return 0;
+	if(n===1 || n===2) return 1;
+	return nthFibo(n-1) + nthFibo(n-2);
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
