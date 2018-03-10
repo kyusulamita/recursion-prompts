@@ -9,13 +9,13 @@
 var factorial = function(n) {
 	if(n < 0) return null;
 	if(n === 0) return 1;
-	return n*factorial(--n);
+	return n * factorial(--n);
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
-	if(array.length === 0) return 0;
+	if (!array.length) return 0;
 	return array[0] + sum(array.slice(1));
 };
 
@@ -23,7 +23,7 @@ var sum = function(array) {
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
 	if(array.length === 0) return 0;
-	var curSum  = (Array.isArray(array[0])) ?  arraySum(array[0]) : array[0];
+	const curSum  = (Array.isArray(array[0])) ?  arraySum(array[0]) : array[0];
 	return curSum + arraySum(array.slice(1));
 };
 
@@ -31,15 +31,15 @@ var arraySum = function(array) {
 var isEven = function(n) {
 	if(n === 1) return false;
 	else if(n === 0) return true;
-	return isEven(Math.abs(n-2));	
+	return isEven(Math.abs(n-2));
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
-var sumBelow = function(n) {		
-	if(n < 1 && n > -1) return 0;
-	else if(n >= 1)
+var sumBelow = function(n) {
+	if(!n) return 0;
+	if(n >= 1)
 		return --n + sumBelow(n);
 	else if(n <= -1)
 		return ++n + sumBelow(n);
@@ -48,11 +48,12 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+
 	if(x < y)
-		x++; 
-	else if(x > y) 
+		x++;
+	else if(x > y)
 		x--;
-	if (x === y) 
+	if (x === y)
 		return [];
 	return [x].concat(range(x,y));
 };
@@ -83,8 +84,7 @@ var powerOfTwo = function(n) {
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
 	if (string.length === 0) return "";
-	else
-		return reverse(string.substr(1)) + string[0];
+  return reverse(string.substr(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
@@ -92,7 +92,7 @@ var palindrome = function(string){
 	if(string.length < 2) return true;
 	string = string.toLowerCase().trim();
 	if(string[0] === string[string.length-1]){
-		return true && palindrome(string.substr(1, string.length-2));
+		return palindrome(string.substr(1, string.length-2));
 	}
 	return false;
 };
@@ -148,7 +148,7 @@ var multiply = function(x, y) {
 // Math methods.
 var divide = function(x, y) {
 	if(x === 0) return 0;
-	if(y = 0) return 0;
+	if(y === 0) return 0;
 	return 1 + divide(x-y, y);
 
 };
@@ -159,6 +159,7 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -218,7 +219,7 @@ var countOccurrence = function(array, value) {
 	if (!array.length) return 0;
 	if (array[0] === value)
 		return 1+countOccurrence(array.slice(1),value);
-	return 0+countOccurrence(array.slice(1),value) 
+	return 0+countOccurrence(array.slice(1),value)
 };
 
 // 21. Write a recursive version of map.
